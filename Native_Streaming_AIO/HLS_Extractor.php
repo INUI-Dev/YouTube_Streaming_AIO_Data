@@ -34,33 +34,23 @@ $ROOT_URL_MAIN = $protocol . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SEL
 $PHP_PATH = $protocol . ($_SERVER['SERVER_NAME']) . ($_SERVER['PHP_SELF']) . "";
 
 $Example_Live = $PHP_PATH . "?id=" . "v3jpVUOi9XU";
-//$Example_Video = $PHP_PATH . "?id=" . "6IrO01N9LqM";
 
     if(empty($_GET["id"])) {
     exit( json_encode(array(
-	"App" => "YouTube HLS Extractor",
-	"Version" => "1.0",
-	"Support" => "Live Stream Only",
+    "App" => "YouTube HLS Extractor",
+    "Version" => "1.0",
+    "Support" => "Live Stream Only",
     "Message" => "ID Parameter Required",
     "Parameters" => "?id=VIDEO_ID",
     "Example Live Stream" => "{$Example_Live}",
-	//"Example Video" => "{$Example_Video}",
     "PHP Code Generated From Host" => "demo.kodi.al",
     "PHP Code Generated Date" => "Tuesday, 08 December 2020 - 22:29:12"
     )));
 }
 
 $id = $_GET["id"];
-//if(!$id) die("Need YouTube Live Stream Video ID Example: ?id=KjpZ7TeXoH4");
 $url = file_get_contents("https://www.youtube.com/watch?v=$id");
 
-/* //BACK OLD
-$hlsManifestUrl = '/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m';
-preg_match_all($hlsManifestUrl, $url, $match, PREG_PATTERN_ORDER, 0);
-$stream = $match[1][0];
-*/
-
-// NEW
 preg_match('/"hlsManifestUrl":"(.*?)"/',$url,$match);
 $stream = $match[1];
 
