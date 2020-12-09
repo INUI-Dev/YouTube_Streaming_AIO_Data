@@ -70,9 +70,6 @@ echo "<body>\n";
 ob_end_flush();
 ?>
 <?php
-ob_start();
-error_reporting(0);
-set_time_limit(0);
 if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
   $protocol = 'http://';
 } else {
@@ -120,7 +117,6 @@ die(
 {
 ?>
 <?php
-
 $id = $_GET["id"];
 date_default_timezone_set("Europe/Tirane");
 header('Access-Control-Allow-Origin: *');
@@ -139,50 +135,9 @@ function get_data($url) {
     curl_close($ch);
     return $data;
 }
-
 $url = get_data('https://www.youtube.com/watch?v=' . $id);
-
-// NEW
 preg_match('/"hlsManifestUrl":"(.*?)"/',$url,$match);
 $stream = $match[1];
-
-/*
-// AUTO MODE
-$hlsManifestUrl = '/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m';
-preg_match_all($hlsManifestUrl, $url, $matches, PREG_PATTERN_ORDER, 0);
-// AUTO MODE
-
-// MANUAL MODE
-//preg_match_all($hlsManifestUrl, $url, $matches, PREG_SET_ORDER, 0);
-//preg_match_all('/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m',$url,$matches, PREG_PATTERN_ORDER);
-// PMANUAL MODE
-
-$var1=$matches[1][0];
-//$var1 = substr($var1, 8);
-$var1=str_replace("\/", "/", $var1);
-
-$man = get_data($var1);
-/*
- QUALITY SETTINGS
- 96 = 1920x1080 
-$regex = '/(https:\/.*\/96\/.*index.m3u8)/U';
-
- 95 = 1280x720
-$regex = '/(https:\/.*\/95\/.*index.m3u8)/U';
-
- 94 = 854x480
-$regex = '/(https:\/.*\/94\/.*index.m3u8)/U';
-
- 94 = 854x480
-$regex = '/(https:\/.*\/94\/.*index.m3u8)/U';
-
- 93 = 640x360
-$regex = '/(https:\/.*\/93\/.*index.m3u8)/U';
-*/
-/*
-preg_match_all('/(https:\/.*\/95\/.*index.m3u8)/U',$man,$matches, PREG_PATTERN_ORDER);
-$stream = $matches[1][0];
-*/
 header("Content-type: application/vnd.apple.mpegurl");
 header("Location: $stream");
 }
