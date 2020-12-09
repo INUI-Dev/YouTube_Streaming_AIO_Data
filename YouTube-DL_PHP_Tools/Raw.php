@@ -122,13 +122,13 @@ $Example_Video = $PHP_PATH . "?id=" . "6IrO01N9LqM";
 
     if(empty($_GET["id"])) {
     exit( json_encode(array(
-	"App" => "YouTube HLS Extractor",
-	"Version" => "1.0",
-	"Player" => "Raw",
+    "App" => "YouTube HLS Extractor",
+    "Version" => "1.0",
+    "Player" => "Raw",
     "Message" => "ID Parameter Required",
     "Parameters" => "?id=VIDEO_ID",
     "Example Live Stream" => "{$Example_Live}",
-	"Example Video" => "{$Example_Video}",
+    "Example Video" => "{$Example_Video}",
     "PHP Code Generated From Host" => "demo.kodi.al",
     "PHP Code Generated Date" => "Tuesday, 08 December 2020 - 22:29:12"
     )));
