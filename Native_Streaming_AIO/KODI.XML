@@ -11,7 +11,7 @@ INSTALL ONLINE FROM REPO EDHE JO NGA LOCAL DISK
 <title>[COLOR lime][B]DIRECT LINK PER XTREAM CODES PANEL[/COLOR][/B]</title>
 <thumbnail>http://png.kodi.al/tv/albdroid/black.png</thumbnail>
 <fanart>http://png.kodi.al/tv/albdroid/black.png</fanart>
-<link>http://localhost/xtream_panel.php?id=2018HTdmB-4</link>
+<link>http://localhost/Xtream.php?id=2018HTdmB-4</link>
 </item>
 
 <item>
@@ -22,7 +22,7 @@ INSTALL ONLINE FROM REPO EDHE JO NGA LOCAL DISK
 <regex>
 <name>stream_link</name>
 <expres>#EXTINF:-1.*\n(.*)</expres>
-<page>http://localhost/m3u_stream.php?id=2018HTdmB-4</page>
+<page>http://localhost/M3U.php?id=2018HTdmB-4</page>
 </regex>
 </item>
 
@@ -34,7 +34,7 @@ INSTALL ONLINE FROM REPO EDHE JO NGA LOCAL DISK
 <regex>
 <name>stream_link</name>
 <expres>(http.*?.*)</expres>
-<page>http://localhost/raw_stream.php?id=2018HTdmB-4</page>
+<page>http://localhost/RAW.php?id=2018HTdmB-4</page>
 </regex>
 </item>
 </channel>
