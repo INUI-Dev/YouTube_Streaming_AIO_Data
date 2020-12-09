@@ -19,12 +19,6 @@
  │ Created   │ 19 January 2020                                │
  │ Modified  │ 08 December 2020                               │
  └────────────────────────────────────────────────────────────┘
- [x] To Get Live Stream Required Live Stream Video ID
- Formats
- 96 = 1080P Full HD
- 95 = 720P HD
- 94 = 480P SD
- 93 = 360P Low
 */
 
 // FIXED 08 December 2020
@@ -97,67 +91,19 @@ function get_data($url) {
     curl_close($ch);
     return $data;
 }
-
 $url = get_data('https://www.youtube.com/watch?v=' . $id);
-
-// NEW
 preg_match('/"hlsManifestUrl":"(.*?)"/',$url,$matches);
 $stream = $matches[1];
-
-// TEST TITLE
-//$video_id = $_GET["id"];
 $Get_Data_URL = (('http://youtube.com/get_video_info?video_id=' . $id));
 $Get_Data_Contents = urldecode(trim($Get_Data_URL));
 $string_data = file_get_contents($Get_Data_Contents);
 $decoded_data = urldecode($string_data);
-
-// GET STREAM TITLE REGEX
 preg_match('/"title":"(.*?)"/',$decoded_data,$title_matches);
 $title = str_replace(
     array("%20","\u0026","  "),
     array("", " ", ""),
     $title_matches[1]
 );
-// TEST TITLE
-//echo $title;
-
-/*
-// AUTO MODE
-$hlsManifestUrl = '/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m';
-preg_match_all($hlsManifestUrl, $url, $matches, PREG_PATTERN_ORDER, 0);
-// AUTO MODE
-
-// MANUAL MODE PUNON
-//preg_match_all($hlsManifestUrl, $url, $matches, PREG_SET_ORDER, 0);
-//preg_match_all('/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m',$url,$matches, PREG_PATTERN_ORDER);
-// MANUAL MODE PUNON
-
-$var1=$matches[1][0];
-//$var1 = substr($var1, 8);
-$var1=str_replace("\/", "/", $var1);
-$man = get_data($var1);
-/*
- QUALITY SETTINGS
- 96 = 1920x1080 
-$regex = '/(https:\/.*\/96\/.*index.m3u8)/U';
-
- 95 = 1280x720
-$regex = '/(https:\/.*\/95\/.*index.m3u8)/U';
-
- 94 = 854x480
-$regex = '/(https:\/.*\/94\/.*index.m3u8)/U';
-
- 94 = 854x480
-$regex = '/(https:\/.*\/94\/.*index.m3u8)/U';
-
- 93 = 640x360
-$regex = '/(https:\/.*\/93\/.*index.m3u8)/U';
-*/
-/*
-preg_match_all('/(https:\/.*\/95\/.*index.m3u8)/U',$man,$matches, PREG_PATTERN_ORDER);
-$stream = $matches[1][0];
-*/
-
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 echo "#EXTM3U YouTube Streaming #Albdroid PHP Streaming Tools\n";
