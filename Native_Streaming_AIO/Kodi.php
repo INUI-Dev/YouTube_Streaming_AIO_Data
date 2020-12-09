@@ -96,74 +96,25 @@ function get_data($url) {
 }
 $url = get_data('https://www.youtube.com/watch?v=' . $id);
 
-/*
-// AUTO MODE
-$hlsManifestUrl = '/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m';
-preg_match_all($hlsManifestUrl, $url, $matches, PREG_PATTERN_ORDER, 0);
-// AUTO MODE
-*/
-
-// MANUAL MODE PUNON
-//preg_match_all($hlsManifestUrl, $url, $matches, PREG_SET_ORDER, 0);
-//preg_match_all('/,\\\\"hlsManifestUrl\\\\":\\\\"(.*?)\\\\"/m',$url,$matches, PREG_PATTERN_ORDER);
-// MANUAL MODE PUNON
-
-// NEW
 preg_match('/"hlsManifestUrl":"(.*?)"/',$url,$matches);
 $stream = $matches[1];
-
-// TEST TITLE
-//$video_id = $_GET["id"];
 $Get_Data_URL = (('http://youtube.com/get_video_info?video_id=' . $id));
 $Get_Data_Contents = urldecode(trim($Get_Data_URL));
 $string_data = file_get_contents($Get_Data_Contents);
 $decoded_data = urldecode($string_data);
-
-// GET STREAM TITLE REGEX
 preg_match('/"title":"(.*?)"/',$decoded_data,$title_matches);
 $title = str_replace(
     array("%20","\u0026","  "),
     array("", " ", ""),
     $title_matches[1]
 );
-// TEST TITLE
-//echo $title;
 
-////////// OLD NOPE
-/*
-$var1=$matches[1][0];
-$var1=str_replace("\/", "/", $var1);
-$man = get_data($var1);
-*/
-/*
- QUALITY SETTINGS
- 96 = 1920x1080 
-$regex = '/(https:\/.*\/96\/.*index.m3u8)/U';
-
- 95 = 1280x720
-$regex = '/(https:\/.*\/95\/.*index.m3u8)/U';
-
- 94 = 854x480
-$regex = '/(https:\/.*\/94\/.*index.m3u8)/U';
-
- 93 = 640x360
-$regex = '/(https:\/.*\/93\/.*index.m3u8)/U';
-*/
-//preg_match_all('/(https:\/.*\/95\/.*index.m3u8)/U',$man,$matches, PREG_PATTERN_ORDER);
-//$stream_link=$matches[1][0];
-//echo $stream_link;
-////////// OLD NOPE
 header("Content-type: application/vnd.apple.mpegurl");
-//header("Location: $stream_link");
-
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');
 $albdroidlogo = "https://png.kodi.al/tv/albdroid/";
-//$stream_title = "My Stream Title"; // OLD MANUAL
 echo "<item>\n";
-echo "<title>[COLOR lime][B]".$title."[/COLOR][/B]</title>\n"; // NEW
-//echo "<title>[COLOR lime][B]".$stream_title."[/COLOR][/B]</title>\n"; // OLD MANUAL
-//echo "<link>".$matches[1][0]."</link>\n"; // OLD NOPE
+echo "<title>[COLOR lime][B]".$title."[/COLOR][/B]</title>\n";
 echo "<link>".$stream."</link>\n";
 echo "<thumbnail>".$albdroidlogo."black.png</thumbnail>\n";
 echo "<fanart>".$albdroidlogo."black.png</fanart>\n";
